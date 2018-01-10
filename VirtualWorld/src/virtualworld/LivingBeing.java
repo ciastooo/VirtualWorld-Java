@@ -11,7 +11,7 @@ package virtualworld;
  */
 public interface LivingBeing {
     public void action();
-    public boolean collision();
+    public boolean collision(LivingBeing colliding);
     public void draw();
     public boolean reproduce();
     public int getInitiative();
@@ -23,6 +23,4 @@ public interface LivingBeing {
     public String getName();
     public boolean getCanMove();
     public void setCanMove(boolean newValue);
-    public void setToDelete();
-    public boolean getToDelete();
 }

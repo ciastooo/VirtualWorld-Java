@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package virtualworld;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -12,10 +14,12 @@ package virtualworld;
 public class World {
     private int width;
     private int height;
+    private List<LivingBeing> organisms;
     
     World(int width, int height) {
         this.width = width;
         this.height = height;
+        this.organisms = new ArrayList<LivingBeing>();
     }
     
     World() {
