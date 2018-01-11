@@ -15,8 +15,8 @@ import java.util.Random;
 public abstract class Plant extends Organism implements LivingBeing {
     protected int reproducingChance;
         
-    public Plant(World world, int strength, int initiative, int x, int y, String name, boolean canMove, int reproducingChance) {
-        super(world, strength, initiative, x, y, name, canMove);
+    public Plant(World world, int strength, int x, int y, String name, boolean canMove, int reproducingChance) {
+        super(world, strength, 0, x, y, name, canMove);
         this.reproducingChance = reproducingChance;
     }
     
