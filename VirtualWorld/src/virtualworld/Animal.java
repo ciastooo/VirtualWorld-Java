@@ -131,9 +131,9 @@ public abstract class Animal extends Organism implements LivingBeing{
     public boolean collision(LivingBeing other) {
         String consoleLog;
         if(other.getClass() == this.getClass()) {
-            boolean tryMultiply = this.reproduce();
+            boolean tryMultiply = this.tryReproduce();
             if(!tryMultiply) {
-                tryMultiply = other.reproduce();
+                tryMultiply = other.tryReproduce();
             }
             consoleLog = "Kolizja zwięrząt tego samego gatunku, ";
             if(tryMultiply) {
