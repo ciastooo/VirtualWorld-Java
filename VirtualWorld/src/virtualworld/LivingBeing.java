@@ -23,4 +23,5 @@ public interface LivingBeing {
     public String getName();
     public boolean getCanMove();
     public void setCanMove(boolean newValue);
+    public void setToDelete();
 }

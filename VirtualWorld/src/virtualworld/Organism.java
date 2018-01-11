@@ -17,6 +17,7 @@ public abstract class Organism implements LivingBeing{
     protected World world;
     protected String name;
     protected boolean canMove;
+    protected boolean toDelete = false;
     
     Organism(World world, int strength, int initiative, int x, int y, String name, boolean canMove) {
         this.world = world;
@@ -31,7 +32,7 @@ public abstract class Organism implements LivingBeing{
     public abstract void action();
     public abstract boolean collision(LivingBeing colliding);
     public void draw() {
-        
+        // TODO: rysowanie organizmów
     }
     public abstract boolean reproduce();
     
@@ -62,5 +63,8 @@ public abstract class Organism implements LivingBeing{
     }
     public void setCanMove(boolean newValue) {
         this.canMove = newValue;
+    }
+    public void setToDelete() {
+        this.toDelete = true;
     }
 }
