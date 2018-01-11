@@ -34,7 +34,7 @@ public abstract class Organism implements LivingBeing{
     public void draw() {
         // TODO: rysowanie organizmów
     }
-    public abstract boolean reproduce();
+    public abstract boolean tryReproduce();
     
     public int getInitiative() {
         return this.initiative;

@@ -13,7 +13,7 @@ public interface LivingBeing {
     public void action();
     public boolean collision(LivingBeing colliding);
     public void draw();
-    public boolean reproduce();
+    public boolean tryReproduce();
     public int getInitiative();
     public World getWorld();
     public int getX();

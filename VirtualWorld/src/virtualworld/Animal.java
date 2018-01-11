@@ -17,10 +17,8 @@ public abstract class Animal extends Organism implements LivingBeing{
     Animal(World world, int strength, int initiative, int x, int y, String name, boolean canMove) {
         super(world, strength, initiative, x, y, name, canMove);
     }
-  
-    public abstract boolean reproduce();
-    
-    public boolean tryReproduce(LivingBeing child) {
+      
+    public boolean tryReproduce() {
         for (int x = this.x - 1; x <= this.x + 1; x += 2) {
 		final int tmpX;
 		if (x < 1) {
@@ -34,10 +32,14 @@ public abstract class Animal extends Organism implements LivingBeing{
 		Optional<LivingBeing> occupied = this.world.findLivingBeing(item -> item.getX() == tmpX && item.getY() == this.y);
 		
                 if (!occupied.isPresent()) {
-                    child.setXY(tmpX, this.y);
-                    this.world.insertLivingBeing(child);
-                    return true;
-		}
+                    try {
+                        Animal child = this.getClass().getConstructor(World.class, int.class, int.class, boolean.class).newInstance(this.world, tmpX, this.y, false);
+                        this.world.insertLivingBeing(child);
+                        return true;
+                    } catch(Exception ex) {
+                        return false;
+                    }
+                }
 	}
 	for (int y = this.y - 1; y <= this.y + 1; y += 2) {
 		final int tmpY;
@@ -51,9 +53,13 @@ public abstract class Animal extends Organism implements LivingBeing{
                 }
 		Optional<LivingBeing> occupied = this.world.findLivingBeing(item -> item.getX() == this.x && this.y == tmpY);
 		if (!occupied.isPresent()) {
-			child.setXY(this.x, tmpY);
-			this.world.insertLivingBeing(child);
-			return true;
+                    try {
+                        Animal child = this.getClass().getConstructor(World.class, int.class, int.class, boolean.class).newInstance(this.world, this.x, tmpY, false);
+                        this.world.insertLivingBeing(child);
+                        return true;
+                    } catch(Exception ex) {
+                        return false;
+                    }
 		}
 	}
 	return false;
