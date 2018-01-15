@@ -74,8 +74,8 @@ public class Fox extends Animal implements LivingBeing{
                 this.action();
                 return;
             }
-            System.out.print(consoleLog);
-            System.out.print("Kolizja z " + colliding.get().getName());
+            System.out.println(consoleLog);
+            System.out.println("Kolizja z " + colliding.get().getName());
             if(colliding.get().collision(this)) {
                 this.x = newX;
                 this.y = newY;

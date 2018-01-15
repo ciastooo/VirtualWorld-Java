@@ -33,44 +33,59 @@ public abstract class Organism implements LivingBeing{
         this.canMove = canMove;        
     }
     
+    @Override
     public abstract void action();
+    @Override
     public abstract boolean collision(LivingBeing colliding);
-    public void draw() {
-        // TODO: rysowanie organizmów
-    }
+    @Override
     public abstract boolean tryReproduce();
     
+    @Override
     public int getInitiative() {
         return this.initiative;
     }
+    @Override
     public World getWorld() {
         return this.world;
     }
+    @Override
     public int getX() {
         return this.x;
     }
+    @Override
     public int getY() {
         return this.y;
     }
+    @Override
     public void setXY(int x, int y) {
         this.x = x;
         this.y = y;
     }
+    @Override
     public int getStrength() {
         return this.strength;
     }
+    @Override
     public String getName() {
         return this.name;
     }
+    @Override
     public boolean getCanMove() {
         return this.canMove;
     }
+    @Override
     public void setCanMove(boolean newValue) {
         this.canMove = newValue;
     }
+    @Override
+    public boolean getToDelete() {
+        return this.toDelete;
+    }
+    @Override
     public void setToDelete() {
         this.toDelete = true;
     }
+    @Override
     public Color getColor() {
         return this.color;
     }

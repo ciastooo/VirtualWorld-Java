@@ -12,7 +12,7 @@ import java.awt.Color;
  * @author Piotrek
  */
 public class Thorn extends Plant implements LivingBeing{
-    Thorn(World world, int x, int y, boolean canMove) {
+    public Thorn(World world, int x, int y, boolean canMove) {
         super(world, 2, x, y, "Cierń", Color.blue, canMove, 100);
     }
 }

@@ -4,18 +4,19 @@
  * and open the template in the editor.
  */
 package virtualworld;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 import java.util.function.Predicate;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Piotrek
  */
-public class World {
+public class World extends JPanel{
     private int width;
     private int height;
     private List<LivingBeing> organisms;
@@ -24,6 +25,8 @@ public class World {
         this.width = width;
         this.height = height;
         this.organisms = new ArrayList<LivingBeing>();
+        setPreferredSize(new Dimension(400,400));
+        //setPreferredSize(new Dimension(this.width*10, this.height*10));
     }
     
     World() {
@@ -56,17 +59,24 @@ public class World {
         return this.organisms.stream().filter(predicate).findFirst();
     }
     
-    public void Tick() {
-        
+    public void tick() {
+        for(ListIterator<LivingBeing> iterator = this.organisms.listIterator(); iterator.hasNext();) {
+            LivingBeing current = iterator.next();
+            if(!current.getToDelete()) {
+                current.action();                
+            }
+        }
+        for(int i = this.organisms.size()-1; i > 0; i--) {
+            LivingBeing current = this.organisms.get(i);
+            if(current.getToDelete()) {
+               this.organisms.remove(i);
+            } else {
+                current.setCanMove(true);
+            }
+        }
     }
     
-    public void draw(Graphics g) {
-        Graphics2D ctx = (Graphics2D)g;
-        ctx.clearRect(0, 0, this.organisms.size()*10, this.organisms.size()*10);
-        for(int i = 0; i < this.organisms.size(); i++) {
-            LivingBeing current = this.organisms.get(i);
-            
-            ctx.fillRect(current.getX()*10, current.getY()*10, 10, 10);
-        }
+    public List<LivingBeing> getOrganisms() {
+        return this.organisms;
     }
 }

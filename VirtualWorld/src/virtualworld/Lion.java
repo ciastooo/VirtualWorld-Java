@@ -12,14 +12,14 @@ import java.awt.Color;
  * @author Piotrek
  */
 public class Lion extends Animal implements LivingBeing{
-    Lion(World world, int x, int y, boolean canMove) {
+    public Lion(World world, int x, int y, boolean canMove) {
         super(world, 11, 7, x, y, "Lew", Color.YELLOW, canMove);
     }
     
     @Override
     public boolean collision(LivingBeing other) {
         if(other.getStrength() < 5) {
-            System.out.print("Zwierzę " + other.getName() + " ma mniej niż 5 siły. " + other.getName() + " wycofuje się przed lwem.");
+            System.out.println("Zwierzę " + other.getName() + " ma mniej niż 5 siły. " + other.getName() + " wycofuje się przed lwem.");
             return false;
         } else {
             return super.collision(other);

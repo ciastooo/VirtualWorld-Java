@@ -21,6 +21,7 @@ public abstract class Plant extends Organism implements LivingBeing {
         this.reproducingChance = reproducingChance;
     }
     
+    @Override
     public void action() {
         if(!this.canMove) {
             this.canMove = true;
@@ -30,7 +31,7 @@ public abstract class Plant extends Organism implements LivingBeing {
         int randomNumber = new Random().nextInt(100) + 1;
         if(randomNumber > this. reproducingChance) {
             consoleLog +=  " - nie udało się";
-            System.out.print(consoleLog);
+            System.out.println(consoleLog);
         } else {
             System.out.print(consoleLog);
             this.tryReproduce();
@@ -38,6 +39,7 @@ public abstract class Plant extends Organism implements LivingBeing {
         this.canMove = false;
     }
     
+    @Override
     public boolean collision(LivingBeing other) {
         String consoleLog = other.getName() + " napotyka roślinę " + this.getName();
         if(this.strength > other.getStrength()) {
@@ -47,10 +49,11 @@ public abstract class Plant extends Organism implements LivingBeing {
             consoleLog += " i ją zjada";
             this.toDelete = true;
         }
-        System.out.print(consoleLog);
+        System.out.println(consoleLog);
         return true;
     }
     
+    @Override
     public boolean tryReproduce() {
         String consoleLog = " na ";
         int direction = new Random().nextInt(4);
@@ -98,11 +101,11 @@ public abstract class Plant extends Organism implements LivingBeing {
         Optional<LivingBeing> colliding = this.world.findLivingBeing(item -> item.getX() == newX && item.getY() == newY);
         if(colliding.isPresent()) {
             consoleLog += " ale to pole jest już zajęte";
-            System.out.print(consoleLog);
+            System.out.println(consoleLog);
             return false;
         } else {
             consoleLog += ". Sukces";
-            System.out.print(consoleLog);
+            System.out.println(consoleLog);
             try {
                 Plant child = this.getClass().getConstructor(World.class, int.class, int.class, boolean.class).newInstance(this.world, newX, newY, false);
                 this.world.insertLivingBeing(child);

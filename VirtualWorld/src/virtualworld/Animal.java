@@ -8,7 +8,6 @@ package virtualworld;
 import java.awt.Color;
 import java.util.Optional;
 import java.util.Random;
-import sun.security.provider.certpath.BuildStep;
 
 /**
  *
@@ -18,7 +17,8 @@ public abstract class Animal extends Organism implements LivingBeing{
     Animal(World world, int strength, int initiative, int x, int y, String name, Color color, boolean canMove) {
         super(world, strength, initiative, x, y, name, color, canMove);
     }
-      
+   
+    @Override
     public boolean tryReproduce() {
         for (int x = this.x - 1; x <= this.x + 1; x += 2) {
 		final int tmpX;
@@ -66,9 +66,9 @@ public abstract class Animal extends Organism implements LivingBeing{
 	return false;
     }
     
+    @Override
     public void action() {
         if(!this.canMove) {
-            this.canMove = true;
             return;
         }
         final int newX;
@@ -114,10 +114,10 @@ public abstract class Animal extends Organism implements LivingBeing{
                 newY = this.y;
                 break;
         }
-        System.out.print(consoleLog);
+        System.out.println(consoleLog);
         Optional<LivingBeing> colliding = this.world.findLivingBeing(item -> item.getX() == newX && item.getY() == newY);
         if(colliding.isPresent()) {
-            System.out.print("Kolizja z " + colliding.get().getName());
+            System.out.println("Kolizja z " + colliding.get().getName());
             if(colliding.get().collision(this)) {
                 this.x = newX;
                 this.y = newY;
@@ -129,6 +129,7 @@ public abstract class Animal extends Organism implements LivingBeing{
         this.canMove = false;
     }
     
+    @Override
     public boolean collision(LivingBeing other) {
         String consoleLog;
         if(other.getClass() == this.getClass()) {
@@ -138,9 +139,9 @@ public abstract class Animal extends Organism implements LivingBeing{
             }
             consoleLog = "Kolizja zwięrząt tego samego gatunku, ";
             if(tryMultiply) {
-                System.out.print(consoleLog + "rozmożyli się");
+                System.out.println(consoleLog + "rozmożyli się");
             } else {
-                System.out.print(consoleLog + "brak miejsca na potomstwo");
+                System.out.println(consoleLog + "brak miejsca na potomstwo");
             }
             return true;
         } else {
@@ -152,7 +153,7 @@ public abstract class Animal extends Organism implements LivingBeing{
                 consoleLog += "Atakujące zwierzę \"" + other.getName() + "\" wygrywa! Zwierze " + this.getName() + " umiera";
                 this.toDelete = true;
             }
-            System.out.print(consoleLog);
+            System.out.println(consoleLog);
             return true;
         }
     }
