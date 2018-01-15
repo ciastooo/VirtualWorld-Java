@@ -5,12 +5,14 @@
  */
 package virtualworld;
 
+import java.awt.Color;
+
 /**
  *
  * @author Piotrek
  */
 public class Wolf extends Animal implements LivingBeing{
     Wolf(World world, int x, int y, boolean canMove) {
-        super(world, 9, 5, x, y, "Wilk", canMove);
+        super(world, 9, 5, x, y, "Wilk", Color.BLACK, canMove);
     }
 }

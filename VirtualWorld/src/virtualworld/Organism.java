@@ -5,6 +5,8 @@
  */
 package virtualworld;
 
+import java.awt.Color;
+
 /**
  *
  * @author Piotrek
@@ -18,14 +20,16 @@ public abstract class Organism implements LivingBeing{
     protected String name;
     protected boolean canMove;
     protected boolean toDelete = false;
+    protected Color color;
     
-    Organism(World world, int strength, int initiative, int x, int y, String name, boolean canMove) {
+    Organism(World world, int strength, int initiative, int x, int y, String name, Color color, boolean canMove) {
         this.world = world;
         this.strength = strength;
         this.initiative = initiative;
         this.x = x;
         this.y = y;
         this.name = name;
+        this.color = color;
         this.canMove = canMove;        
     }
     
@@ -66,5 +70,8 @@ public abstract class Organism implements LivingBeing{
     }
     public void setToDelete() {
         this.toDelete = true;
+    }
+    public Color getColor() {
+        return this.color;
     }
 }

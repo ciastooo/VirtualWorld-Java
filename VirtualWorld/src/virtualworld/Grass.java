@@ -5,12 +5,14 @@
  */
 package virtualworld;
 
+import java.awt.Color;
+
 /**
  *
  * @author Piotrek
  */
 public class Grass extends Plant implements LivingBeing{
     Grass(World world, int x, int y, boolean canMove) {
-        super(world, 0, x, y, "Trawa", canMove, 50);
+        super(world, 0, x, y, "Trawa", Color.green, canMove, 50);
     }
 }

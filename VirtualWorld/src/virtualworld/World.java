@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package virtualworld;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,5 +54,19 @@ public class World {
     
     public Optional<LivingBeing> findLivingBeing(Predicate<LivingBeing> predicate) {
         return this.organisms.stream().filter(predicate).findFirst();
+    }
+    
+    public void Tick() {
+        
+    }
+    
+    public void draw(Graphics g) {
+        Graphics2D ctx = (Graphics2D)g;
+        ctx.clearRect(0, 0, this.organisms.size()*10, this.organisms.size()*10);
+        for(int i = 0; i < this.organisms.size(); i++) {
+            LivingBeing current = this.organisms.get(i);
+            
+            ctx.fillRect(current.getX()*10, current.getY()*10, 10, 10);
+        }
     }
 }

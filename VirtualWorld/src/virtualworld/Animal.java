@@ -5,6 +5,7 @@
  */
 package virtualworld;
 
+import java.awt.Color;
 import java.util.Optional;
 import java.util.Random;
 import sun.security.provider.certpath.BuildStep;
@@ -14,8 +15,8 @@ import sun.security.provider.certpath.BuildStep;
  * @author Piotrek
  */
 public abstract class Animal extends Organism implements LivingBeing{
-    Animal(World world, int strength, int initiative, int x, int y, String name, boolean canMove) {
-        super(world, strength, initiative, x, y, name, canMove);
+    Animal(World world, int strength, int initiative, int x, int y, String name, Color color, boolean canMove) {
+        super(world, strength, initiative, x, y, name, color, canMove);
     }
       
     public boolean tryReproduce() {

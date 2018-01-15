@@ -5,6 +5,8 @@
  */
 package virtualworld;
 
+import java.awt.Color;
+
 /**
  *
  * @author Piotrek
@@ -24,4 +26,5 @@ public interface LivingBeing {
     public boolean getCanMove();
     public void setCanMove(boolean newValue);
     public void setToDelete();
+    public Color getColor();
 }

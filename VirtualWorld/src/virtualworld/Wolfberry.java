@@ -5,6 +5,8 @@
  */
 package virtualworld;
 
+import java.awt.Color;
+
 /**
  *
  * @author Piotrek
@@ -12,7 +14,7 @@ package virtualworld;
 public class Wolfberry extends Plant implements LivingBeing{
 
     public Wolfberry(World world, int x, int y, boolean canMove) {
-        super(world, 0, x, x, "Wilcze jagody", canMove, 25);
+        super(world, 0, x, x, "Wilcze jagody", Color.RED, canMove, 25);
     }
     
     @Override

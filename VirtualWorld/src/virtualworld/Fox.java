@@ -5,6 +5,7 @@
  */
 package virtualworld;
 
+import java.awt.Color;
 import java.util.Optional;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ import java.util.Random;
  */
 public class Fox extends Animal implements LivingBeing{
     Fox(World world, int x, int y, boolean canMove) {
-        super(world, 3, 7, x, y, "Lis", canMove);
+        super(world, 3, 7, x, y, "Lis", Color.ORANGE, canMove);
     }
     
     @Override

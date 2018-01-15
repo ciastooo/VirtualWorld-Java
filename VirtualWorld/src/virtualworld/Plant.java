@@ -5,6 +5,7 @@
  */
 package virtualworld;
 
+import java.awt.Color;
 import java.util.Optional;
 import java.util.Random;
 
@@ -15,8 +16,8 @@ import java.util.Random;
 public abstract class Plant extends Organism implements LivingBeing {
     protected int reproducingChance;
         
-    public Plant(World world, int strength, int x, int y, String name, boolean canMove, int reproducingChance) {
-        super(world, strength, 0, x, y, name, canMove);
+    public Plant(World world, int strength, int x, int y, String name, Color color, boolean canMove, int reproducingChance) {
+        super(world, strength, 0, x, y, name, color, canMove);
         this.reproducingChance = reproducingChance;
     }
     
