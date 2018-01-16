@@ -60,10 +60,12 @@ public class World extends JPanel{
     }
     
     public void tick() {
-        for(ListIterator<LivingBeing> iterator = this.organisms.listIterator(); iterator.hasNext();) {
+        List<LivingBeing> listCopy = new ArrayList(this.organisms);
+        for(ListIterator<LivingBeing> iterator = listCopy.listIterator(); iterator.hasNext();) {
             LivingBeing current = iterator.next();
             if(!current.getToDelete()) {
-                current.action();                
+                current.action();
+                
             }
         }
         for(int i = this.organisms.size()-1; i > 0; i--) {
