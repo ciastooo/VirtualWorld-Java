@@ -5,9 +5,8 @@
  */
 package virtualworld;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 import java.util.function.Predicate;
 import javax.swing.JPanel;
@@ -16,17 +15,15 @@ import javax.swing.JPanel;
  *
  * @author Piotrek
  */
-public class World extends JPanel{
+public class World{
     private int width;
     private int height;
-    private List<LivingBeing> organisms;
+    private LinkedList organisms;
     
     World(int width, int height) {
         this.width = width;
         this.height = height;
-        this.organisms = new ArrayList<LivingBeing>();
-        setPreferredSize(new Dimension(400,400));
-        //setPreferredSize(new Dimension(this.width*10, this.height*10));
+        this.organisms = new LinkedList();
     }
     
     World() {
@@ -42,43 +39,20 @@ public class World extends JPanel{
     }
     
     public void insertLivingBeing(LivingBeing adding) {
-        boolean added = false;
-        for(int i = 0; i < this.organisms.size(); i++) {
-            if(this.organisms.get(i).getInitiative() < adding.getInitiative()) {
-                this.organisms.add(i, adding);
-                added = true;
-                break;
-            }
-        }
-        if(!added) {
-            this.organisms.add(adding);
-        }
+        this.organisms.insert(adding);
+        
     }
     
     public Optional<LivingBeing> findLivingBeing(Predicate<LivingBeing> predicate) {
-        return this.organisms.stream().filter(predicate).findFirst();
+        return this.organisms.search(predicate);
     }
     
     public void tick() {
-        List<LivingBeing> listCopy = new ArrayList(this.organisms);
-        for(ListIterator<LivingBeing> iterator = listCopy.listIterator(); iterator.hasNext();) {
-            LivingBeing current = iterator.next();
-            if(!current.getToDelete()) {
-                current.action();
-                
-            }
-        }
-        for(int i = this.organisms.size()-1; i > 0; i--) {
-            LivingBeing current = this.organisms.get(i);
-            if(current.getToDelete()) {
-               this.organisms.remove(i);
-            } else {
-                current.setCanMove(true);
-            }
-        }
+        this.organisms.doAction();
+        this.organisms.refreshMove();
     }
     
-    public List<LivingBeing> getOrganisms() {
-        return this.organisms;
+    public void draw(Graphics2D g2) {
+        this.organisms.draw(g2);
     }
 }

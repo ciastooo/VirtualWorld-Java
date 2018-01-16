@@ -5,6 +5,7 @@
  */
 package virtualworld;
 
+import java.awt.Graphics2D;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -13,7 +14,7 @@ import java.util.function.Predicate;
  * @author Piotrek
  */
 public class LinkedList {
-    LinkedListItem head;
+    private LinkedListItem head;
     
     public LinkedList() {
         this.head = null;
@@ -114,6 +115,16 @@ public class LinkedList {
                 search.getOrganism().setCanMove(true);
                 search = search.getNext();
             }
+        }
+    }
+    
+    public void draw(Graphics2D g2) {
+        LinkedListItem search = this.head;
+        while(search != null) {
+            LivingBeing current = search.getOrganism();
+            g2.setColor(current.getColor());
+            g2.fillRect((current.getX()-1)*10, (current.getY()-1)*10, 10, 10);
+            search = search.getNext();
         }
     }
 }
