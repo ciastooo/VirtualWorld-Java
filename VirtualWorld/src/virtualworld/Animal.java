@@ -81,7 +81,7 @@ public abstract class Animal extends Organism implements LivingBeing{
                 if(this.y == 1) {
                     newY = this.world.getHeight();
                 } else {
-                    newY = this.y;
+                    newY = this.y - 1;
                 }
                 newX = this.x;
                 break;

@@ -49,7 +49,7 @@ public class VirtualWorld {
 
         JFrame.setDefaultLookAndFeelDecorated(true);
 
-        JFrame frame = new JFrame("Piotr Wontka - wirtualny świat");
+        JFrame frame = new JFrame("Piotr Wontka 167951- wirtualny świat");
         frame.setSize(420, 600);
 
         JPanel worldPanel = new WorldPanel(world);
@@ -69,11 +69,23 @@ public class VirtualWorld {
         JButton saveBtn = new JButton("Zapisz");
         saveBtn.setVerticalTextPosition(AbstractButton.CENTER);
         saveBtn.setHorizontalAlignment(AbstractButton.LEADING);
+        saveBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                world.exportToFile();
+            }
+        });
 
         JButton loadBtn = new JButton("Wczytaj");
         loadBtn.setVerticalTextPosition(AbstractButton.CENTER);
         loadBtn.setHorizontalAlignment(AbstractButton.LEADING);
-
+        loadBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                world.importFromFile();
+            }
+        });
+        
         buttons.add(tickBtn);
         buttons.add(saveBtn);
         buttons.add(loadBtn);
