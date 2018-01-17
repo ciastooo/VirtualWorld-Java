@@ -29,4 +29,5 @@ public class WorldPanel extends JPanel {
         g.clearRect(0, 0, this.world.getWidth()*10, this.world.getHeight()*10);
         this.world.draw(g2);
     }
+    
 }

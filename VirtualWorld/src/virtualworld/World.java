@@ -130,4 +130,59 @@ public class World{
             
         }
     }
+    
+    public void addAtPixelPosition(int x, int y) {
+        String[] organisms = {"Wilk", "Owca", "Lis", "Lew", "Królik", "Trawa", "Cierń", "Wilcze jagody"};
+        int n = JOptionPane.showOptionDialog(null,
+            "Który organizm chcesz dodać?",
+            "Wybierz organizm",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            organisms,
+            organisms[0]);
+        LivingBeing importingOrganism;
+        switch(organisms[n]) {
+            case "Wilk":
+                System.out.print("Wilk:");
+                importingOrganism = new Wolf(this, x , y, true);
+                break;
+            case "Owca":
+                System.out.print("Owca:");
+                importingOrganism = new Sheep(this, x , y, true);
+                break;
+            case "Królik":
+                System.out.print("Królik:");
+                importingOrganism = new Rabbit(this, x , y, true);
+                break;
+            case "Lew":
+                System.out.print("Lew:");
+                importingOrganism = new Lion(this, x , y, true);
+                break;
+            case "Lis":
+                System.out.print("Lis:");
+                importingOrganism = new Fox(this, x , y, true);
+                break;
+            case "Trawa":
+                System.out.print("Trawa:");
+                importingOrganism = new Grass(this, x , y, true);
+                break;
+            case "Wilcze jagody":
+                System.out.print("Wilcze jagody:");
+                importingOrganism = new Wolfberry(this, x , y, true);
+                break;
+            case "Cierń":
+            default:
+                System.out.print("Cierń:");
+                importingOrganism = new Thorn(this, x, y, true);
+                break;
+        }
+        System.out.print("x = " + x + "   y = " + y + "\n");
+        Optional<LivingBeing> colliding = this.findLivingBeing(item -> item.getX() == x && item.getY() == y);
+        if(colliding.isPresent()) {
+            JOptionPane.showMessageDialog(null, "To pole jest już zajęte!");
+        } else {
+            this.insertLivingBeing(importingOrganism);
+        }        
+    }
 }

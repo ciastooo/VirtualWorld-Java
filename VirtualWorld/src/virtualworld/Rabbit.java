@@ -13,7 +13,7 @@ import java.awt.Color;
  */
 public class Rabbit extends Animal implements LivingBeing{
     public Rabbit(World world, int x, int y, boolean canMove) {
-        super(world, 1, 8, x, y, "Królik", Color.DARK_GRAY, canMove);
+        super(world, 1, 8, x, y, "Królik", Color.PINK, canMove);
     }
     
     @Override

@@ -7,6 +7,8 @@ package virtualworld;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*; 
 
 /**
@@ -53,6 +55,20 @@ public class VirtualWorld {
         frame.setSize(420, 600);
 
         JPanel worldPanel = new WorldPanel(world);
+        worldPanel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                world.addAtPixelPosition((me.getX()/10)+1, (me.getY()/10)+1);
+            }
+            @Override
+            public void mousePressed(MouseEvent me) {}
+            @Override
+            public void mouseReleased(MouseEvent me) {}
+            @Override
+            public void mouseEntered(MouseEvent me) {}
+            @Override
+            public void mouseExited(MouseEvent me) {}
+        });
         JPanel buttons = new JPanel();
 
         JButton tickBtn = new JButton("Następna tura");
