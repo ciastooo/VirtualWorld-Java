@@ -14,7 +14,7 @@ import java.util.Random;
  * @author Piotrek
  */
 public class Fox extends Animal implements LivingBeing{
-    Fox(World world, int x, int y, boolean canMove) {
+    public Fox(World world, int x, int y, boolean canMove) {
         super(world, 3, 7, x, y, "Lis", Color.ORANGE, canMove);
     }
     
@@ -26,20 +26,20 @@ public class Fox extends Animal implements LivingBeing{
         }
         final int newX;
         final int newY;
-        String consoleLog = "Zwierzę " + this.getName() + " idzie na ";
+        String log = "Zwierzę " + this.getName() + " idzie na ";
         final int moveDirection = new Random().nextInt(4);
         switch(moveDirection) {
             case 0:
-                consoleLog += "północ";
+                log += "północ";
                 if(this.y == 1) {
                     newY = this.world.getHeight();
                 } else {
-                    newY = this.y;
+                    newY = this.y - 1;
                 }
                 newX = this.x;
                 break;
             case 1:
-                consoleLog += "wschód";
+                log += "wschód";
                 if(this.x == this.world.getWidth()) {
                     newX = 1;
                 } else {
@@ -48,7 +48,7 @@ public class Fox extends Animal implements LivingBeing{
                 newY = this.y;
                 break;
             case 2:
-                consoleLog += "południe";
+                log += "południe";
                 if(this.y == this.world.getHeight()) {
                     newY = 1;
                 } else {
@@ -58,7 +58,7 @@ public class Fox extends Animal implements LivingBeing{
                 break;
             case 3:
             default:
-                consoleLog += "zachód";
+                log += "zachód";
                 if(this.x == 1) {
                     newX = this.world.getWidth();
                 } else {
@@ -74,13 +74,14 @@ public class Fox extends Animal implements LivingBeing{
                 this.action();
                 return;
             }
-            System.out.println(consoleLog);
-            System.out.println("Kolizja z " + colliding.get().getName());
+            this.world.consoleLogLn(log);
+            this.world.consoleLogLn("Kolizja z " + colliding.get().getName());
             if(colliding.get().collision(this)) {
                 this.x = newX;
                 this.y = newY;
             }
         } else {
+            this.world.consoleLogLn(log);
             this.x = newX;
             this.y = newY;
         }

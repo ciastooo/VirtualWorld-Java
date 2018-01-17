@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -24,6 +25,7 @@ public class World{
     private int width;
     private int height;
     private LinkedList organisms;
+    private JTextArea console;
     
     World(int width, int height) {
         this.width = width;
@@ -33,6 +35,10 @@ public class World{
     
     World() {
         this(20,20);
+    }
+    
+    public void setConsole(JTextArea console) {
+        this.console = console;
     }
     
     public int getWidth() {
@@ -53,6 +59,7 @@ public class World{
     }
     
     public void tick() {
+        this.clearConsole();
         this.organisms.doAction();
         this.organisms.refreshMove();
     }
@@ -79,49 +86,49 @@ public class World{
             this.organisms = new LinkedList();
             this.width = Integer.parseInt(br.readLine());
             this.height = Integer.parseInt(br.readLine());
-            System.out.println("świat o szerokości = " + this.width + "    oraz wysokości = " + this.height);
+            this.consoleLogLn("świat o szerokości = " + this.width + "    oraz wysokości = " + this.height);
             String line = br.readLine();
             while (line != null) {
                 LivingBeing importingOrganism;
                 int x,y;
                 switch(line) {
                     case "Wilk":
-                        System.out.print("Wilk:");
+                        this.consoleLog("Wilk:");
                         importingOrganism = new Wolf(this, 0 , 0, false);
                         break;
                     case "Owca":
-                        System.out.print("Owca:");
+                        this.consoleLog("Owca:");
                         importingOrganism = new Sheep(this, 0 , 0, false);
                         break;
                     case "Królik":
-                        System.out.print("Królik:");
+                        this.consoleLogLn("Królik:");
                         importingOrganism = new Rabbit(this, 0 , 0, false);
                         break;
                     case "Lew":
-                        System.out.print("Lew:");
+                        this.consoleLogLn("Lew:");
                         importingOrganism = new Lion(this, 0 , 0, false);
                         break;
                     case "Lis":
-                        System.out.print("Lis:");
+                        this.consoleLogLn("Lis:");
                         importingOrganism = new Fox(this, 0 , 0, false);
                         break;
                     case "Trawa":
-                        System.out.print("Trawa:");
+                        this.consoleLogLn("Trawa:");
                         importingOrganism = new Grass(this, 0 , 0, false);
                         break;
                     case "Wilcze jagody":
-                        System.out.print("Wilcze jagody:");
+                        this.consoleLogLn("Wilcze jagody:");
                         importingOrganism = new Wolfberry(this, 0 , 0, false);
                         break;
                     case "Cierń":
                     default:
-                        System.out.print("Cierń:");
+                        this.consoleLogLn("Cierń:");
                         importingOrganism = new Thorn(this, 0 , 0, false);
                         break;
                 }
                 x = Integer.parseInt(br.readLine());
                 y = Integer.parseInt(br.readLine());
-                System.out.print(" na pozycji x = " + x + "   y = " + y + "\n");
+                this.consoleLogLn(" na pozycji x = " + x + "   y = " + y);
                 importingOrganism.setXY(x, y);
                 this.organisms.insert(importingOrganism);
                 line = br.readLine();
@@ -133,6 +140,11 @@ public class World{
     
     public void addAtPixelPosition(int x, int y) {
         if(x > this.width || y > this.height) {
+            return;
+        }
+        Optional<LivingBeing> colliding = this.findLivingBeing(item -> item.getX() == x && item.getY() == y);
+        if(colliding.isPresent()) {
+            JOptionPane.showMessageDialog(null, "To pole jest już zajęte!");
             return;
         }
         String[] organisms = {"Wilk", "Owca", "Lis", "Lew", "Królik", "Trawa", "Cierń", "Wilcze jagody"};
@@ -150,45 +162,54 @@ public class World{
         LivingBeing importingOrganism;
         switch(organisms[n]) {
             case "Wilk":
-                System.out.print("Wilk:");
+                this.consoleLog("Wilk:");
                 importingOrganism = new Wolf(this, x , y, true);
                 break;
             case "Owca":
-                System.out.print("Owca:");
+                this.consoleLog("Owca:");
                 importingOrganism = new Sheep(this, x , y, true);
                 break;
             case "Królik":
-                System.out.print("Królik:");
+                this.consoleLog("Królik:");
                 importingOrganism = new Rabbit(this, x , y, true);
                 break;
             case "Lew":
-                System.out.print("Lew:");
+                this.consoleLog("Lew:");
                 importingOrganism = new Lion(this, x , y, true);
                 break;
             case "Lis":
-                System.out.print("Lis:");
+                this.consoleLog("Lis:");
                 importingOrganism = new Fox(this, x , y, true);
                 break;
             case "Trawa":
-                System.out.print("Trawa:");
+                this.consoleLog("Trawa:");
                 importingOrganism = new Grass(this, x , y, true);
                 break;
             case "Wilcze jagody":
-                System.out.print("Wilcze jagody:");
+                this.consoleLog("Wilcze jagody:");
                 importingOrganism = new Wolfberry(this, x , y, true);
                 break;
             case "Cierń":
             default:
-                System.out.print("Cierń:");
+                this.consoleLog("Cierń:");
                 importingOrganism = new Thorn(this, x, y, true);
                 break;
         }
-        System.out.print("x = " + x + "   y = " + y + "\n");
-        Optional<LivingBeing> colliding = this.findLivingBeing(item -> item.getX() == x && item.getY() == y);
-        if(colliding.isPresent()) {
-            JOptionPane.showMessageDialog(null, "To pole jest już zajęte!");
-        } else {
-            this.insertLivingBeing(importingOrganism);
-        }        
+        this.consoleLogLn("  x = " + x + "   y = " + y);
+        this.insertLivingBeing(importingOrganism);
+    }
+    
+    public void consoleLog(String str) {
+        System.out.print(str);
+        this.console.append(str);
+    }
+    
+    public void consoleLogLn(String str) {
+        System.out.println(str);
+        this.console.append(str+'\n');
+    }
+
+    public void clearConsole() {
+        this.console.setText("");
     }
 }

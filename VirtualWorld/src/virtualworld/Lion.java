@@ -19,7 +19,7 @@ public class Lion extends Animal implements LivingBeing{
     @Override
     public boolean collision(LivingBeing other) {
         if(other.getStrength() < 5) {
-            System.out.println("Zwierzę " + other.getName() + " ma mniej niż 5 siły. " + other.getName() + " wycofuje się przed lwem.");
+            this.world.consoleLogLn("Zwierzę " + other.getName() + " ma mniej niż 5 siły. " + other.getName() + " wycofuje się przed lwem.");
             return false;
         } else {
             return super.collision(other);

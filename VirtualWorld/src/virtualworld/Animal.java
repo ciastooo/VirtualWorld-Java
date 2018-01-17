@@ -73,11 +73,11 @@ public abstract class Animal extends Organism implements LivingBeing{
         }
         final int newX;
         final int newY;
-        String consoleLog = "Zwierzę " + this.getName() + " idzie na ";
+        String log = "Zwierzę " + this.getName() + " idzie na ";
         final int moveDirection = new Random().nextInt(4);
         switch(moveDirection) {
             case 0:
-                consoleLog += "północ";
+                log += "północ";
                 if(this.y == 1) {
                     newY = this.world.getHeight();
                 } else {
@@ -86,7 +86,7 @@ public abstract class Animal extends Organism implements LivingBeing{
                 newX = this.x;
                 break;
             case 1:
-                consoleLog += "wschód";
+                log += "wschód";
                 if(this.x == this.world.getWidth()) {
                     newX = 1;
                 } else {
@@ -95,7 +95,7 @@ public abstract class Animal extends Organism implements LivingBeing{
                 newY = this.y;
                 break;
             case 2:
-                consoleLog += "południe";
+                log += "południe";
                 if(this.y == this.world.getHeight()) {
                     newY = 1;
                 } else {
@@ -105,7 +105,7 @@ public abstract class Animal extends Organism implements LivingBeing{
                 break;
             case 3:
             default:
-                consoleLog += "zachód";
+                log += "zachód";
                 if(this.x == 1) {
                     newX = this.world.getWidth();
                 } else {
@@ -114,10 +114,10 @@ public abstract class Animal extends Organism implements LivingBeing{
                 newY = this.y;
                 break;
         }
-        System.out.println(consoleLog);
+        this.world.consoleLogLn(log);
         Optional<LivingBeing> colliding = this.world.findLivingBeing(item -> item.getX() == newX && item.getY() == newY);
         if(colliding.isPresent()) {
-            System.out.println("Kolizja z " + colliding.get().getName());
+            this.world.consoleLogLn("Kolizja z " + colliding.get().getName());
             if(colliding.get().collision(this)) {
                 this.x = newX;
                 this.y = newY;
@@ -131,29 +131,29 @@ public abstract class Animal extends Organism implements LivingBeing{
     
     @Override
     public boolean collision(LivingBeing other) {
-        String consoleLog;
+        String log;
         if(other.getClass() == this.getClass()) {
             boolean tryMultiply = this.tryReproduce();
             if(!tryMultiply) {
                 tryMultiply = other.tryReproduce();
             }
-            consoleLog = "Kolizja zwięrząt tego samego gatunku, ";
+            log = "Kolizja zwięrząt tego samego gatunku, ";
             if(tryMultiply) {
-                System.out.println(consoleLog + "rozmożyli się");
+                this.world.consoleLogLn(log + "rozmożyli się");
             } else {
-                System.out.println(consoleLog + "brak miejsca na potomstwo");
+                this.world.consoleLogLn(log + "brak miejsca na potomstwo");
             }
             return true;
         } else {
-            consoleLog = "Walka! ";
+            log = "Walka! ";
             if(this.strength > other.getStrength()) {
-                consoleLog += "Atakujące zwierzę \"" + this.getName() + "\" przegrywa i umiera!";
+                log += "Atakujące zwierzę \"" + this.getName() + "\" przegrywa i umiera!";
                 other.setToDelete();
             } else {
-                consoleLog += "Atakujące zwierzę \"" + other.getName() + "\" wygrywa! Zwierze " + this.getName() + " umiera";
+                log += "Atakujące zwierzę \"" + other.getName() + "\" wygrywa! Zwierze " + this.getName() + " umiera";
                 this.toDelete = true;
             }
-            System.out.println(consoleLog);
+            this.world.consoleLogLn(log);
             return true;
         }
     }

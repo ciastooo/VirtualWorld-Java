@@ -27,13 +27,13 @@ public abstract class Plant extends Organism implements LivingBeing {
             this.canMove = true;
             return;
         }
-        String consoleLog = this.name + " próbuje się rozmnożyć";
+        String log = this.name + " próbuje się rozmnożyć";
         int randomNumber = new Random().nextInt(100) + 1;
         if(randomNumber > this. reproducingChance) {
-            consoleLog +=  " - nie udało się";
-            System.out.println(consoleLog);
+            log +=  " - nie udało się";
+            this.world.consoleLogLn(log);
         } else {
-            System.out.print(consoleLog);
+            this.world.consoleLog(log);
             this.tryReproduce();
         }
         this.canMove = false;
@@ -41,27 +41,27 @@ public abstract class Plant extends Organism implements LivingBeing {
     
     @Override
     public boolean collision(LivingBeing other) {
-        String consoleLog = other.getName() + " napotyka roślinę " + this.getName();
+        String log = other.getName() + " napotyka roślinę " + this.getName();
         if(this.strength > other.getStrength()) {
-            consoleLog += ", rani się na niej i umiera";
+            log += ", rani się na niej i umiera";
             other.setToDelete();
         } else {
-            consoleLog += " i ją zjada";
+            log += " i ją zjada";
             this.toDelete = true;
         }
-        System.out.println(consoleLog);
+        this.world.consoleLogLn(log);
         return true;
     }
     
     @Override
     public boolean tryReproduce() {
-        String consoleLog = " na ";
+        String log = " na ";
         int direction = new Random().nextInt(4);
         final int newX;
         final int newY;
         switch(direction) {
             case 0:
-                consoleLog += "północ";
+                log += "północ";
                 if(this.y == 1) {
                     newY = this.world.getHeight();
                 } else {
@@ -70,7 +70,7 @@ public abstract class Plant extends Organism implements LivingBeing {
                 newX = this.x;
                 break;
             case 1:
-                consoleLog += "wschód";
+                log += "wschód";
                 if(this.x == this.world.getWidth()) {
                     newX = 1;
                 } else {
@@ -79,7 +79,7 @@ public abstract class Plant extends Organism implements LivingBeing {
                 newY = this.y;
                 break;
             case 2:
-                consoleLog += "południe";
+                log += "południe";
                 if(this.y == this.world.getHeight()) {
                     newY = 1;
                 } else {
@@ -89,7 +89,7 @@ public abstract class Plant extends Organism implements LivingBeing {
                 break;
             case 3:
             default:
-                consoleLog += "zachód";
+                log += "zachód";
                 if(this.x == 1) {
                     newX = this.world.getWidth();
                 } else {
@@ -100,12 +100,12 @@ public abstract class Plant extends Organism implements LivingBeing {
         }
         Optional<LivingBeing> colliding = this.world.findLivingBeing(item -> item.getX() == newX && item.getY() == newY);
         if(colliding.isPresent()) {
-            consoleLog += " ale to pole jest już zajęte";
-            System.out.println(consoleLog);
+            log += " ale to pole jest już zajęte";
+            this.world.consoleLogLn(log);
             return false;
         } else {
-            consoleLog += ". Sukces";
-            System.out.println(consoleLog);
+            log += ". Sukces";
+            this.world.consoleLogLn(log);
             try {
                 Plant child = this.getClass().getConstructor(World.class, int.class, int.class, boolean.class).newInstance(this.world, newX, newY, false);
                 this.world.insertLivingBeing(child);

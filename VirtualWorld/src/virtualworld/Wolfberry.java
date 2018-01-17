@@ -21,7 +21,7 @@ public class Wolfberry extends Plant implements LivingBeing{
     public boolean collision(LivingBeing other) {
         if(super.collision(other) && this.toDelete) {
             // If we got here, it means that colliding organism ate Wolfberry => it dies
-            System.out.println(this.name + " jest trująca! " + other.getName() + " zatruwa się");
+            this.world.consoleLogLn(this.name + " jest trująca! " + other.getName() + " zatruwa się");
             other.setToDelete();
             return true;
         }

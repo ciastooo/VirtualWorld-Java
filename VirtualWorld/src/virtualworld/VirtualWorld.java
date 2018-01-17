@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*; 
+import javax.swing.text.DefaultCaret;
+import static javax.swing.text.DefaultCaret.ALWAYS_UPDATE;
 
 /**
  *
@@ -21,7 +23,6 @@ public class VirtualWorld {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
         boolean okX = true, okY = true;
         int x = 40, y = 40;
         do {
@@ -41,24 +42,14 @@ public class VirtualWorld {
                 JOptionPane.showMessageDialog(null, "Podaj poprawną liczbę (2-40)");
             }
         } while(!okX || !okY);
+        
         World world = new World(x, y);
-        Wolf w = new Wolf(world, 1, 1, true);
-        Sheep s = new Sheep(world, 3, 5, true);
-        Grass g = new Grass(world, 2, 2, true);
-        world.insertLivingBeing(w);
-        world.insertLivingBeing(s);
-        world.insertLivingBeing(g);
-
-        JFrame.setDefaultLookAndFeelDecorated(true);
-
-        JFrame frame = new JFrame("Piotr Wontka 167951- wirtualny świat");
-        frame.setSize(420, 680);
-
         JPanel worldPanel = new WorldPanel(world);
         worldPanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
                 world.addAtPixelPosition((me.getX()/10)+1, (me.getY()/10)+1);
+                worldPanel.repaint();
             }
             @Override
             public void mousePressed(MouseEvent me) {}
@@ -69,7 +60,7 @@ public class VirtualWorld {
             @Override
             public void mouseExited(MouseEvent me) {}
         });
-        JPanel buttons = new JPanel();
+        JPanel buttons = new JPanel();        
         
         JButton tickBtn = new JButton("Następna tura");
         tickBtn.setVerticalTextPosition(AbstractButton.CENTER);
@@ -107,6 +98,10 @@ public class VirtualWorld {
         buttons.add(loadBtn);
         
         JTextArea console = new JTextArea();
+        DefaultCaret caret = (DefaultCaret)console.getCaret();
+        caret.setUpdatePolicy(ALWAYS_UPDATE);
+        console.setEditable(false);
+        console.setLineWrap(true);
         JScrollPane scrollWrapper = new JScrollPane(console);  
         scrollWrapper.setVerticalScrollBarPolicy(
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -123,11 +118,15 @@ public class VirtualWorld {
         gbc.weighty = 0.1;
         gbc.gridy = 1;
         consoleWrapper.add(buttons, gbc);
+        
+        world.setConsole(console);
+        world.consoleLogLn("Kliknij na dowolne pole aby dodać organizm");
+
+        JFrame frame = new JFrame("Piotr Wontka 167951- wirtualny świat");
+        frame.setSize(420, 680);
         frame.add(worldPanel);
         frame.add(consoleWrapper, BorderLayout.PAGE_END);
-
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        System.out.println("DONE");
      }   
 }

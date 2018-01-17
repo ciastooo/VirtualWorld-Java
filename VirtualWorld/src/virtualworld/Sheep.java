@@ -12,7 +12,7 @@ import java.awt.Color;
  * @author Piotrek
  */
 public class Sheep extends Animal implements LivingBeing{
-    Sheep(World world, int x, int y, boolean canMove) {
-        super(world, 4, 4, x, y, "Owca", Color.gray, canMove);
+    public Sheep(World world, int x, int y, boolean canMove) {
+        super(world, 4, 4, x, y, "Owca", Color.LIGHT_GRAY, canMove);
     }
 }
