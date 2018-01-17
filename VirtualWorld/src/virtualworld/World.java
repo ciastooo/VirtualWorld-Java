@@ -132,6 +132,9 @@ public class World{
     }
     
     public void addAtPixelPosition(int x, int y) {
+        if(x > this.width || y > this.height) {
+            return;
+        }
         String[] organisms = {"Wilk", "Owca", "Lis", "Lew", "Królik", "Trawa", "Cierń", "Wilcze jagody"};
         int n = JOptionPane.showOptionDialog(null,
             "Który organizm chcesz dodać?",
@@ -141,6 +144,9 @@ public class World{
             null,
             organisms,
             organisms[0]);
+        if(n == -1) {
+            return;
+        }
         LivingBeing importingOrganism;
         switch(organisms[n]) {
             case "Wilk":

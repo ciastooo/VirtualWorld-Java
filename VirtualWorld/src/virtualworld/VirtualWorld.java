@@ -52,7 +52,7 @@ public class VirtualWorld {
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         JFrame frame = new JFrame("Piotr Wontka 167951- wirtualny świat");
-        frame.setSize(420, 600);
+        frame.setSize(420, 680);
 
         JPanel worldPanel = new WorldPanel(world);
         worldPanel.addMouseListener(new MouseListener() {
@@ -70,7 +70,7 @@ public class VirtualWorld {
             public void mouseExited(MouseEvent me) {}
         });
         JPanel buttons = new JPanel();
-
+        
         JButton tickBtn = new JButton("Następna tura");
         tickBtn.setVerticalTextPosition(AbstractButton.CENTER);
         tickBtn.setHorizontalAlignment(AbstractButton.LEADING);
@@ -105,9 +105,27 @@ public class VirtualWorld {
         buttons.add(tickBtn);
         buttons.add(saveBtn);
         buttons.add(loadBtn);
-
+        
+        JTextArea console = new JTextArea();
+        JScrollPane scrollWrapper = new JScrollPane(console);  
+        scrollWrapper.setVerticalScrollBarPolicy(
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollWrapper.setPreferredSize(new Dimension(400, 200));
+        JPanel consoleWrapper = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.9;
+        consoleWrapper.add(scrollWrapper, gbc);
+        gbc.weighty = 0.1;
+        gbc.gridy = 1;
+        consoleWrapper.add(buttons, gbc);
         frame.add(worldPanel);
-        frame.add(buttons, BorderLayout.SOUTH);
+        frame.add(consoleWrapper, BorderLayout.PAGE_END);
+
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         System.out.println("DONE");
