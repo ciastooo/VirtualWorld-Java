@@ -133,7 +133,7 @@ public class LinkedList {
         LinkedListItem current = this.head;
         while(current != null) {
             LivingBeing organism = current.getOrganism();
-            sb.append(organism.getName()).append(System.getProperty("line.separator"));
+            sb.append(organism.getName().charAt(0)).append(System.getProperty("line.separator"));
             sb.append(organism.getX()).append(System.getProperty("line.separator"));
             sb.append(organism.getY()).append(System.getProperty("line.separator"));
             current = current.getNext();

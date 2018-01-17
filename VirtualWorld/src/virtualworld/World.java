@@ -92,37 +92,37 @@ public class World{
                 LivingBeing importingOrganism;
                 int x,y;
                 switch(line) {
-                    case "Wilk":
+                    case "W":
                         this.consoleLog("Wilk:");
                         importingOrganism = new Wolf(this, 0 , 0, false);
                         break;
-                    case "Owca":
+                    case "O":
                         this.consoleLog("Owca:");
                         importingOrganism = new Sheep(this, 0 , 0, false);
                         break;
-                    case "Królik":
-                        this.consoleLogLn("Królik:");
+                    case "K":
+                        this.consoleLog("Królik:");
                         importingOrganism = new Rabbit(this, 0 , 0, false);
                         break;
-                    case "Lew":
-                        this.consoleLogLn("Lew:");
+                    case "L":
+                        this.consoleLog("Lew:");
                         importingOrganism = new Lion(this, 0 , 0, false);
                         break;
-                    case "Lis":
-                        this.consoleLogLn("Lis:");
+                    case "l":
+                        this.consoleLog("Lis:");
                         importingOrganism = new Fox(this, 0 , 0, false);
                         break;
-                    case "Trawa":
-                        this.consoleLogLn("Trawa:");
+                    case "t":
+                        this.consoleLog("Trawa:");
                         importingOrganism = new Grass(this, 0 , 0, false);
                         break;
-                    case "Wilcze jagody":
-                        this.consoleLogLn("Wilcze jagody:");
+                    case "w":
+                        this.consoleLog("Wilcze jagody:");
                         importingOrganism = new Wolfberry(this, 0 , 0, false);
                         break;
-                    case "Cierń":
+                    case "c":
                     default:
-                        this.consoleLogLn("Cierń:");
+                        this.consoleLog("Cierń:");
                         importingOrganism = new Thorn(this, 0 , 0, false);
                         break;
                 }

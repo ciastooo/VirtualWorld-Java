@@ -23,7 +23,7 @@ public class VirtualWorld {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        boolean okX = true, okY = true;
+        boolean okX = false, okY = false;
         int x = 40, y = 40;
         do {
             try {
@@ -90,6 +90,7 @@ public class VirtualWorld {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 world.importFromFile();
+                worldPanel.repaint();
             }
         });
         
@@ -101,7 +102,7 @@ public class VirtualWorld {
         DefaultCaret caret = (DefaultCaret)console.getCaret();
         caret.setUpdatePolicy(ALWAYS_UPDATE);
         console.setEditable(false);
-        console.setLineWrap(true);
+        //console.setLineWrap(true);
         JScrollPane scrollWrapper = new JScrollPane(console);  
         scrollWrapper.setVerticalScrollBarPolicy(
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
